@@ -4068,12 +4068,15 @@ def send_to_telegram(movie_data, movie_id):
     caption = "\n".join(caption_parts)
 
     # --- 2. Build the Inline Keyboard with the New Button ---
-    watch_url = url_for('movie_detail', movie_id=movie_id, _external=True)
+    
+    # [CHANGE]: এখানে পরিবর্তন করা হয়েছে। এখন এটি হোম পেজের লিংক তৈরি করবে।
+    watch_url = url_for('home', _external=True) 
+    
     keyboard = {
         "inline_keyboard": [
             [{"text": "✅ Watch on Website", "url": watch_url}],
             [{"text": "🤔 How to Download?", "url": HOW_TO_DOWNLOAD_URL}],
-            [{"text": "🔔 Join Our Backup Channel", "url": "https://t.me/TGLinkBase"}] # <-- নতুন বাটন
+            [{"text": "🔔 Join Our Backup Channel", "url": "https://t.me/TGLinkBase"}]
         ]
     }
     reply_markup = json.dumps(keyboard)
@@ -4099,7 +4102,6 @@ def send_to_telegram(movie_data, movie_id):
     except requests.exceptions.RequestException as e:
         print(f"FATAL: An error occurred while sending request to Telegram: {e}")
 # --- END: FINAL UPDATED TELEGRAM FUNCTION ---
-
 from urllib.parse import urlparse, parse_qs
 
 # --- [ADD THIS NEW HELPER FUNCTION] ---
